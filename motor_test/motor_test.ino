@@ -18,42 +18,45 @@ void setup(){
   pinMode(mot2In1,OUTPUT);
   pinMode(mot2In2,OUTPUT);
   pinMode(LED_PIN, OUTPUT);
-  //pinMode(A0, OUTPUT);
 
   // make the Bluetooth Module reset:
-  digitalWrite(A5, LOW);
-  delay(100);
-  digitalWrite(A5, HIGH);
-  delay(500);
-
-  Serial.begin(115200);
-  Serial.println("send start!");
+//  digitalWrite(A5, LOW);
+//  delay(100);
+//  digitalWrite(A5, HIGH);
+//  delay(500);
+//
+//  Serial.begin(115200);
+//  Serial.println("send start!");
   
 }
 
 void loop(){
+
+  //左車輪・前進 
   digitalWrite(motIn1,HIGH);
   digitalWrite(motIn2,LOW);
+  analogWrite(motControl,250);
+  
+  //右車輪・後進
   digitalWrite(mot2In1,HIGH);
   digitalWrite(mot2In2,LOW);
-  analogWrite(motControl,250);
   analogWrite(mot2Control,250);
 
-//  digitalWrite(LED_PIN, HIGH);
-//  delay(3000);
-//  digitalWrite(LED_PIN, LOW);
-//  delay(3000);
+  digitalWrite(LED_PIN, HIGH);
+  delay(3000);
+  digitalWrite(LED_PIN, LOW);
+  delay(3000);
 
    // if we get a valid byte, read analog ins:
-  if (Serial.available() > 0) {
-    digitalWrite(LED_PIN, HIGH);
-
-    // get incoming byte:
-    char inByte = Serial.read();
-    Serial.write(inByte); 
-    delay(100);
-  }
-  delay(1);        // delay in between reads for stability
+//  if (Serial.available() > 0) {
+//    digitalWrite(LED_PIN, HIGH);
+//
+//    // get incoming byte:
+//    char inByte = Serial.read();
+//    Serial.write(inByte); 
+//    delay(100);
+//  }
+//  delay(1);        // delay in between reads for stability
 
 //  int input;
 //  input=Serial.read();

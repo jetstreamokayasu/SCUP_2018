@@ -1,128 +1,164 @@
 // 変数の定義
+
+//左車輪
 const int motIn1 = 7; //to driver 6
 const int motIn2 = 8; //to driver 5
 const int motControl = 9; //to driver 4
 
+//右車輪
 const int mot2In1 = 2; //to driver 6
 const int mot2In2 = 4; //to driver 5
 const int mot2Control = 5; //to driver 4
 
-int rotSpeed = 0;
-int stepSpeed = 5;
+//int rotSpeed = 0;
+//int stepSpeed = 5;
 #define LED_PIN 13
- 
+
 // 初期化
-void setup(){
-  pinMode(motIn1,OUTPUT);
-  pinMode(motIn2,OUTPUT);
-  pinMode(mot2In1,OUTPUT);
-  pinMode(mot2In2,OUTPUT);
+void setup() {
+  //左車輪
+  pinMode(motIn1, OUTPUT);
+  pinMode(motIn2, OUTPUT);
+
+  //右車輪
+  pinMode(mot2In1, OUTPUT);
+  pinMode(mot2In2, OUTPUT);
   pinMode(LED_PIN, OUTPUT);
 
- // make the Bluetooth Module reset:
+  // make the Bluetooth Module reset:
   digitalWrite(A5, LOW);
   delay(100);
   digitalWrite(A5, HIGH);
   delay(500);
-    // シリアルポートを115200 bps[ビット/秒]で初期化 
+  // シリアルポートを115200 bps[ビット/秒]で初期化
   Serial.begin(115200);
 }
- 
+
 // 繰り返し処理
-void loop(){
+void loop() {
   int inputchar;
- 
+
   // シリアルポートより1文字読み込む
   inputchar = Serial.read();
- 
-  if(inputchar != -1 ){
+
+  if (inputchar != -1 ) {
     // 読み込んだデータが -1 以外の場合　以下の処理を行う
- 
-    switch(inputchar){
-      case 'g':
-        // 読み込みデータが g の場合
- 
-        Serial.write("Go!!!\n");
-//          digitalWrite(motIn1,HIGH);
-//          digitalWrite(motIn2,LOW);
-//          digitalWrite(mot2In1,HIGH);
-//          digitalWrite(mot2In2,LOW);
-//          analogWrite(motControl,100);
-//          analogWrite(mot2Control,100);
 
-//          digitalWrite(LED_PIN, HIGH);
-//          delay(3000);
-//          digitalWrite(LED_PIN, LOW);
-//          delay(3000);
-        break;
-      case 'b':  
-        // 読み込みデータが　b の場合
- 
-        Serial.write("Back!!!\n");
-//          digitalWrite(motIn1,HIGH);
-//          digitalWrite(motIn2,LOW);
-//          digitalWrite(mot2In1,LOW);
-//          digitalWrite(mot2In2,HIGH);
-//          analogWrite(motControl,100);
-//          analogWrite(mot2Control,100);
+    switch (inputchar) {
+      case 'w':
+        // 読み込みデータが w の場合
+        //前進する
+        Serial.print("Forward\n");
+        //左車輪
+        digitalWrite(motIn1, HIGH);
+        digitalWrite(motIn2, LOW);
+        analogWrite(motControl, 250);
 
-//          digitalWrite(LED_PIN, HIGH);
-//          delay(3000);
-//          digitalWrite(LED_PIN, LOW);
-//          delay(3000);
-        break;
-              case 'v':  
-        // 読み込みデータが　v の場合
- 
-        Serial.print("Left!!!\n");
-//          digitalWrite(motIn1,HIGH);
-//          digitalWrite(motIn2,LOW);
-//          digitalWrite(mot2In1,HIGH);
-//          digitalWrite(mot2In2,LOW);
-//          analogWrite(motControl,100);
-//          analogWrite(mot2Control,50);
+        //右車輪
+        digitalWrite(mot2In1, LOW);
+        digitalWrite(mot2In2, HIGH);
+        analogWrite(mot2Control, 250);
 
-//          digitalWrite(LED_PIN, HIGH);
-//          delay(3000);
-//          digitalWrite(LED_PIN, LOW);
-//          delay(3000);
+        digitalWrite(LED_PIN, HIGH);
+        delay(100);
+        digitalWrite(LED_PIN, LOW);
+        delay(100);
         break;
-              case 'n':  
-        // 読み込みデータが　n の場合
- 
-        Serial.print("Right!!!\n");
-//          digitalWrite(motIn1,HIGH);
-//          digitalWrite(motIn2,LOW);
-//          digitalWrite(mot2In1,HIGH);
-//          digitalWrite(mot2In2,LOW);
-//          analogWrite(motControl,50);
-//          analogWrite(mot2Control,100);
+      case 's':
+        // 読み込みデータが　s の場合
+        //後退する
+        Serial.print("Back\n");
+        //左車輪
+        digitalWrite(motIn1, LOW);
+        digitalWrite(motIn2, HIGH);
+        analogWrite(motControl, 250);
 
-          digitalWrite(LED_PIN, HIGH);
-          delay(3000);
-          digitalWrite(LED_PIN, LOW);
-          delay(3000);
+        //右車輪
+        digitalWrite(mot2In1, HIGH);
+        digitalWrite(mot2In2, LOW);
+        analogWrite(mot2Control, 250);
+
+        digitalWrite(LED_PIN, HIGH);
+        delay(100);
+        digitalWrite(LED_PIN, LOW);
+        delay(100);
         break;
-              case 'h':  
-        // 読み込みデータが　h の場合
- 
-        Serial.print("Stop!!!\n");
-//          digitalWrite(motIn1,HIGH);
-//          digitalWrite(motIn2,LOW);
-//          digitalWrite(mot2In1,LOW);
-//          digitalWrite(mot2In2,LOW);
-//          analogWrite(motControl,10);
-//          analogWrite(mot2Control,10);
-//
-//          digitalWrite(LED_PIN, HIGH);
-//          delay(3000);
-//          digitalWrite(LED_PIN, LOW);
-//          delay(3000);
+      case 'a':
+        // 読み込みデータが　a の場合
+        //左折する
+        Serial.print("Left\n");
+       //左車輪・後進
+        digitalWrite(motIn1, LOW);
+        digitalWrite(motIn2, HIGH);
+        analogWrite(motControl, 200);
+
+        //右車輪・前進
+        digitalWrite(mot2In1, LOW);
+        digitalWrite(mot2In2, HIGH);
+        analogWrite(mot2Control, 200);
+
+        digitalWrite(LED_PIN, HIGH);
+        delay(100);
+        digitalWrite(LED_PIN, LOW);
+        delay(100);
+        break;
+      case 'd':
+        // 読み込みデータがd の場合
+        //右折する
+        Serial.print("Right\n");
+       //左車輪・前進
+        digitalWrite(motIn1, HIGH);
+        digitalWrite(motIn2, LOW);
+        analogWrite(motControl, 250);
+
+        //右車輪・後進
+        digitalWrite(mot2In1, HIGH);
+        digitalWrite(mot2In2, LOW);
+        analogWrite(mot2Control, 250);
+
+        digitalWrite(LED_PIN, HIGH);
+        delay(100);
+        digitalWrite(LED_PIN, LOW);
+        delay(100);
+        break;
+      case 'l':
+        // 読み込みデータが　l の場合
+        //停止する
+        Serial.print("Stop\n");
+        //左車輪・ブレーキ
+        digitalWrite(motIn1, HIGH);
+        digitalWrite(motIn2, HIGH);
+        analogWrite(motControl, 250);
+
+        //右車輪・ブレーキ
+        digitalWrite(mot2In1, HIGH);
+        digitalWrite(mot2In2, HIGH);
+        analogWrite(mot2Control, 250);
+
+        digitalWrite(LED_PIN, HIGH);
+        delay(100);
+        digitalWrite(LED_PIN, LOW);
+        delay(100);
         break;
     }
   } else {
-    
-    // 読み込むデータが無い場合は何もしない
-    
+
+    // 読み込むデータが無い場合はストップ
+        //左車輪・ニュートラル
+        digitalWrite(motIn1, LOW);
+        digitalWrite(motIn2, LOW);
+        analogWrite(motControl, 250);
+
+        //右車輪・ニュートラル
+        digitalWrite(mot2In1, LOW);
+        digitalWrite(mot2In2, LOW);
+        analogWrite(mot2Control, 250);
+
+//        digitalWrite(LED_PIN, HIGH);
+        delay(200);
+//        digitalWrite(LED_PIN, LOW);
+//        delay(100);
+
   }
+
 }
