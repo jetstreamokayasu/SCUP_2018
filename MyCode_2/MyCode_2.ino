@@ -92,12 +92,12 @@ void loop() {
        //左車輪・後進
         digitalWrite(motIn1, LOW);
         digitalWrite(motIn2, HIGH);
-        analogWrite(motControl, 200);
+        analogWrite(motControl, 250);
 
         //右車輪・前進
         digitalWrite(mot2In1, LOW);
         digitalWrite(mot2In2, HIGH);
-        analogWrite(mot2Control, 200);
+        analogWrite(mot2Control, 250);
 
         digitalWrite(LED_PIN, HIGH);
         delay(100);
