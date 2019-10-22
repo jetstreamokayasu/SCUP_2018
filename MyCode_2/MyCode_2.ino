@@ -1,9 +1,10 @@
+
 // 変数の定義
 
 //左車輪
-const int motIn1 = 7; //to driver 6
-const int motIn2 = 8; //to driver 5
-const int motControl = 9; //to driver 4
+const int motIn1 = 7; //to driver 5
+const int motIn2 = 8; //to driver 6
+const int motControl = 6; //to driver 4
 
 //右車輪
 const int mot2In1 = 2; //to driver 6
