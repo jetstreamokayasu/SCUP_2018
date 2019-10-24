@@ -17,6 +17,12 @@ const int mot2Control = 5; //to driver 4
 //int stepSpeed = 5;
 #define LED_PIN 13
 
+//プロペラ
+const int propIn1 = 12; //to driver 5
+const int propIn2 = 13; //to driver 6
+const int propControl = 11; //to driver 4
+//プロペラ制御変数
+boolean prope = false;
 
 Servo myservo;
 int pos = 0;
@@ -41,7 +47,12 @@ void setup() {
   Serial.begin(115200);
 
   //サーボ信号用ピンを設定
-  myservo.attach(10);
+  myservo.attach(9);
+
+  //プロペラ
+  pinMode(propIn1, OUTPUT);
+  pinMode(propIn2, OUTPUT);
+
   
 }
 
@@ -167,6 +178,21 @@ void loop() {
         pos=pos-5;
         Serial.println(150+pos);
         break;
+
+      case 'p':
+        // 読み込みデータが'p' の場合
+        //プロペラ始動
+        Serial.print("Prop_on\n");
+        prope = true;
+        break;
+
+      case 'o':
+        // 読み込みデータが'o' の場合
+        //プロペラ停止
+        Serial.print("Prop_off\n");
+        prope = false;    
+        break;    
+       
     }
   } else {
 
@@ -190,5 +216,20 @@ void loop() {
 
   //サーボモータの角度指定
   myservo.write( 90+pos );
+
+  if(prope){
+
+  digitalWrite(propIn1, LOW);
+  digitalWrite(propIn2, HIGH);
+  analogWrite(propControl, 200);
+    
+  }else{
+
+  digitalWrite(propIn1, LOW);
+  digitalWrite(propIn2, LOW);
+  analogWrite(propControl, 200);
+    
+  }
+
   
 }
